@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, type SelectHTMLAttributes} from "vue";
 import PawnPreview from "./PawnPreview.vue";
 import gltfFilesFormat from "../configs/gltf-files-format";
 import { useStore } from "vuex";
@@ -39,33 +39,30 @@ async function submit (event: Event) {
     }
 }
 
-function setPlayerName1 (event) {
+function setPlayerName1 (event : EventTarget ) {
   teamName1.value = event.target.value;
 }
-function setPlayerName2 (event) {
+function setPlayerName2 (event: EventTarget ) {
   teamName2.value = event.target.value;
 }
 
-function selectSkinPawnPlayer1 (event) {
+function selectSkinPawnPlayer1 (event: SelectHTMLAttributes ) {
     pawnSkinNamePlayer1.value = event.target.value
 }
 
-function selectSkinPawnPlayer2 (event) {
+function selectSkinPawnPlayer2 (event: SelectHTMLAttributes ) {
     pawnSkinNamePlayer2.value = event.target.value
 }
 
-function selectPreset (event) {
+function selectPreset (event: SelectHTMLAttributes ) {
    gamePreSet.value = event.target.value
 }
 
-function selectDistantMod (event:Event) {
-  event.preventDefault();
+function selectDistantMod () {
   gameMod.value = 'distant';
 }
 
-function selectLocalMod (event:Event) {
-  event.preventDefault();
-
+function selectLocalMod () {
   gameMod.value = 'local';
 }
 
@@ -116,11 +113,11 @@ function selectLocalMod (event:Event) {
             <section  class="game-mod">
               <h2>Mode de la partie</h2>
 
-              <button :onclick="selectLocalMod" class="button-choice" >
+              <button :onclick="selectLocalMod" type="button" class="button-choice" >
                 <p>Partie locale</p>
                 <img class="computeur-icon" src="/assets/screen-image.png" alt="computeur image" />
               </button>
-              <button :onclick="selectDistantMod" class="button-choice">
+              <button :onclick="selectDistantMod" type="button" class="button-choice">
                 <p>Partie à distance</p>
                 <img class="computeur-icon" src="/assets/screen-image.png" aria-hidden />
                 <img class="computeur-icon" src="/assets/screen-image.png" aria-hidden />

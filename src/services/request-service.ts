@@ -1,18 +1,18 @@
 class requestService {
-    async get(url : string, query: Record<string, unknown> = {}) {
+    async get(url : string, query: Record<string, any> = {}) {
         const queryParams = this.buildQueryParams(query)
         return fetch(`${requestService.baseApiUrl}${url}?${queryParams}`, {method: "GET", headers: {"Access-Control-Allow-Origin": "*",'Content-Type': 'application/json'}}).then((response) => response.json());
     }
 
-    async post(url: string, body : Record<string, unknown> = {}) {
+    async post(url: string, body : Record<string, any> = {}) {
         return fetch(`${requestService.baseApiUrl}${url}`, {method: "POST", headers: {"Access-Control-Allow-Origin": "*",'Content-Type': 'application/json'}, body: JSON.stringify(body)}).then((response) => response.json())
     }
 
-    async put(url : string, body: Record<string, unknown>= {}) {
+    async put(url : string, body: Record<string, any>= {}) {
         return fetch(`${requestService.baseApiUrl}${url}`, {method: "PUT", headers: {"Access-Control-Allow-Origin": "*",'Content-Type': 'application/json'}, body: JSON.stringify(body)}).then((response) => response.json())
     }
 
-    buildQueryParams ( queryParamas: Record<string, unknown> = {}) {
+    buildQueryParams ( queryParamas: Record<string, any> = {}) {
         return Object.entries(queryParamas).map(([key, value]) => `${key}=${value}`).join('&');
     }
 

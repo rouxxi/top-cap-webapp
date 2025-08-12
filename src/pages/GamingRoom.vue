@@ -14,9 +14,9 @@ const kings = ref();
 const pawnToUpdate = ref();
 const gameInformation = ref();
 
-Subscritpions.subGame(route.params.id, setUpdatedGameInfo);
-Subscritpions.subTeams(route.params.id, setTeamsInfo );
-Subscritpions.subPawns(route.params.id, setPawnsInfo );
+Subscritpions.subGame(route.params.id[0] ?? route.params.id, setUpdatedGameInfo);
+Subscritpions.subTeams(route.params.id[0] ?? route.params.id, setTeamsInfo );
+Subscritpions.subPawns(route.params.id[0] ?? route.params.id, setPawnsInfo );
 
 const game = ref();
 
@@ -40,7 +40,7 @@ function setTeamsInfo (payload: RawTeam | unknown) {
 // }
 const activeTeam = computed(() => {
   const activeTeamId = game?.value?.active_team;
-  const team = game?.value?.teams?.find((team) => team.id === activeTeamId)
+  const team = game?.value?.teams?.find((team : RawTeam) => team.id === activeTeamId)
   return team;
 })
 
