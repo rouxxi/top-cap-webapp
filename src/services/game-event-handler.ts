@@ -8,7 +8,10 @@ export class GameEventHandler extends EventDispatcher {
     }
 
     async teamHasToPlay (gameId: number , teamId: number) {
-        console.log(gameId , teamId)
         return await RequestService.put('/games', {id: gameId, active_team: teamId })
     }
-};
+
+    async victory (gameId: number , teamId: number) {
+        return await RequestService.put('/games', {id: gameId, status: 'FINISHED', is_finished: true, winner_team_id: teamId })
+    }
+}

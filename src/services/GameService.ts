@@ -114,7 +114,11 @@ export class GameService {
     }
 
     get isGameFinished () {
-        return this.allPawns.some((pawn) => this.isKingPosition(pawn.position, this.teams[0].id)  || this.isKingPosition(pawn.position, this.teams[1].id)  )
+        return this.allPawns.some((pawn) => this.isKingPosition(pawn.position, this.teams[0].id)  || this.isKingPosition(pawn.position, this.teams[1].id))
+    }
+
+    get winner () {
+       return this.allPawns.find((pawn) => this.isKingPosition(pawn.position, this.teams[0].id)  || this.isKingPosition(pawn.position, this.teams[1].id))?.teamId ?? null;
     }
 
     availableMoves (pawn: Pawn) {

@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import gltfImportFormat from '../configs/gltf-files-format';
-import type {RawKing, RawPawn, RawTeam, GameInformation} from "./GameService.ts";
+import {type RawKing, type RawPawn, type RawTeam, type GameInformation, STATUSES} from "./GameService.ts";
 import  {GameService} from "./GameService.ts";
 import { Object3D} from "three";
 import Pawn from "../models/Pawn.ts";
@@ -150,6 +150,10 @@ export class ThreeService {
             teams:serializedTeam
             })
         this.isSpamingGuardOn = false;
+
+        if (this.game.isGameFinished && this.game.status === STATUSES.STARTED && this.game.winner) {
+            this.eventHandler.victory(this.game?.id, this.game.winner);
+        }
     }
 
     _setDefaufaultCameraPosition () {
@@ -161,10 +165,10 @@ export class ThreeService {
     }
 
     get canIPlay () : boolean {
+        if (this.game.isGameFinished) return false;
         if (this.game?.game_mod === "local") return true;
-        console.log('canIplay')
+
         const team = this.game?.teams?.find((team) => team.user_id === this.userId);
-        console.log(team?.id === this.game?.active_team);
         return team?.id === this.game?.active_team;
     }
 
@@ -192,7 +196,6 @@ export class ThreeService {
     }
 
     async clickEvent (_) {
-        console.log(this.game)
         if (!this.canIPlay) return;
         if (this.isSpamingGuardOn) return;
 

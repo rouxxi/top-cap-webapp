@@ -100,7 +100,7 @@ onMounted(async ()=> {
        </span>
      </h2>
    </section>
-   <GameOverview v-if="(game?.status === STATUSES.STARTED && (isInformationLoaded() && imInTheGame && game?.game_mod=== 'distant')) || (game?.status === STATUSES.STARTED && (game?.game_mod=== 'local' && isInformationLoaded()))" :game="game" :pawnToUpdate/>
+   <GameOverview v-if="(game?.status !== STATUSES.CREATED && (isInformationLoaded() && imInTheGame && game?.game_mod=== 'distant')) || (game?.status === STATUSES.CREATED && (game?.game_mod=== 'local' && isInformationLoaded()))" :game="game" :pawnToUpdate/>
 
    <button :onclick="() => router.go(-1)">back</button>
 
