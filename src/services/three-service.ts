@@ -29,6 +29,7 @@ export class ThreeService {
     possibleMoveToString?: string[];
     eventHandler: GameEventHandler;
     userId?: string;
+    isSpamingGuardOn: boolean;
 
     constructor(isPreview: boolean = false) {
         this.clickEvent = this.clickEvent.bind(this);
@@ -43,6 +44,7 @@ export class ThreeService {
         this.mousePosition = new THREE.Vector2(0, 0);
         this.raycaster = new THREE.Raycaster();
         this.eventHandler = new GameEventHandler();
+        this.isSpamingGuardOn = false
 
         if(isPreview) {
             this.camera.position.set(0.8,1,0.8);
@@ -147,6 +149,7 @@ export class ThreeService {
             grid: gameInformation.grid,
             teams:serializedTeam
             })
+        this.isSpamingGuardOn = false;
     }
 
     _setDefaufaultCameraPosition () {
@@ -185,11 +188,13 @@ export class ThreeService {
         if (teamToPlay?.length === 1) {
            this.eventHandler.teamHasToPlay(this.game?.id,teamToPlay[0].id);
         }
+        this.isSpamingGuardOn = true;
     }
 
     async clickEvent (_) {
         console.log(this.game)
         if (!this.canIPlay) return;
+        if (this.isSpamingGuardOn) return;
 
         const board = this.scene.getObjectByName('board-group');
         if (board instanceof Object3D) {
