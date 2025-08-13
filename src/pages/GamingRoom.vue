@@ -13,10 +13,10 @@ const teams = ref();
 const kings = ref();
 const pawnToUpdate = ref();
 const gameInformation = ref();
-
-Subscritpions.subGame(route.params.id[0] ?? route.params.id, setUpdatedGameInfo);
-Subscritpions.subTeams(route.params.id[0] ?? route.params.id, setTeamsInfo );
-Subscritpions.subPawns(route.params.id[0] ?? route.params.id, setPawnsInfo );
+// todo prob avec le typing
+Subscritpions.subGame(route.params.id, setUpdatedGameInfo);
+Subscritpions.subTeams(route.params.id, setTeamsInfo );
+Subscritpions.subPawns(route.params.id, setPawnsInfo );
 
 const game = ref();
 
@@ -69,12 +69,12 @@ async function selectTeam (teamId: number) {
     <h1> Top Cap duel</h1>
      <section v-if=" game?.game_mod === 'distant' && !imInTheGame">
         <h2>Choix de l'équipe</h2>
-       <articles v-for="team in game?.teams">
+       <div v-for="team in game?.teams">
          <button v-if="!team.selected"  :onclick="()=>selectTeam(team.id)" class="button-choice">
            <p>{{team.name}}</p>
            <img class="team-icon" src="/assets/avatars/nut-face.png" alt="computeur image" />
          </button>
-       </articles>
+       </div>
      </section>
     <h2 v-if="game?.status === STATUSES.STARTED">C'est à l'équipe {{ game?.active_team }} de jouer</h2>
   <section >

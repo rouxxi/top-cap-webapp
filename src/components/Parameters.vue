@@ -4,6 +4,7 @@ import PawnPreview from "./PawnPreview.vue";
 import gltfFilesFormat from "../configs/gltf-files-format";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import {RequestService} from "../services/request-service.ts";
 
 
 const pawnsConfigName = gltfFilesFormat.keys(); 
@@ -32,11 +33,15 @@ async function submit (event: Event) {
       ]
     };
 
-    const id = await store.dispatch('createGame', gameConfig);
-
-    if (id) {
-      await router.push(`/gaming-room/${id}`);
+    try {
+      const gameCreated =  await RequestService.post('/games', gameConfig)
+      if (gameCreated?.id) {
+        await router.push(`/gaming-room/${gameCreated?.id}`);
+      }
+    } catch (error) {
+      console.log(error);
     }
+
 }
 
 function setPlayerName1 (event : EventTarget ) {
