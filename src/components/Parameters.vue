@@ -11,18 +11,16 @@ const pawnsConfigName = gltfFilesFormat.keys();
 const pawnSkinNamePlayer1 = ref<string>(pawnsConfigName[0]);
 const pawnSkinNamePlayer2 = ref<string>(pawnsConfigName[1]);
 
-const teamName1 = ref('');
-const teamName2 = ref('');
+const teamName1 = ref('Team 1');
+const teamName2 = ref('Team 2');
 const gamePreSet = ref(1);
 const gameMod = ref('distant');
 
 
 const router = useRouter()
-const store = useStore()
 
 async function submit (event: Event) {
     event.preventDefault();
-  
 
     const gameConfig = {
       preset: gamePreSet.value,
@@ -76,29 +74,29 @@ function selectLocalMod () {
 <template>
     <section class="parameters-container">
         <h2>Paramètre de la partie</h2>
-        <form class="settings-form" >
-            <articles class="player1">
+        <form @submit.prevent="submit" class="settings-form" >
+            <articles class="player">
                 <h3>Joueur 1</h3>
-                <label for="team-name">Nom de l'équipe</label>
-                <input id="team-name" :value="teamName1" :onchange="setPlayerName1" type="text" placeholder="Team 1"/>
+                <label for="team-name-1">Nom de l'équipe</label>
+                <input id="team-name-1" required :value="teamName1" :onchange="setPlayerName1" type="text"/>
 
                 <label for="pawn-skin-player-1">Pion</label>
                 
-                <select id="pawn-skin-player-1" @change="selectSkinPawnPlayer1">
+                <select id="pawn-skin-player-1"  @change="selectSkinPawnPlayer1">
                     <option :value="pawnsConfigName[0]" :key="pawnsConfigName[0]"> {{pawnsConfigName[0]}} </option>
 <!--                    <option v-for="name in pawnsConfigName" :value="name" :key="name"> {{name}} </option>-->
                 </select>
                 <PawnPreview player="player-1" :pawnSkinName="pawnSkinNamePlayer1" />
             </articles>
 
-            <articles class="player2">
+            <articles class="player">
                 <h3>Joueur 2</h3>
-                <label for="team-name">Nom de l'équipe</label>
-                <input id="team-name" :value="teamName2" :onchange="setPlayerName2" type="text" placeholder="Team 2"/>
+                <label for="team-name-2">Nom de l'équipe</label>
+                <input id="team-name-2" required :value="teamName2" :onchange="setPlayerName2" type="text"/>
 
                 <label for="pawn-skin-player-1">Pion</label>
                 
-                <select id="pawn-skin-player-1" @change="selectSkinPawnPlayer2">
+                <select id="pawn-skin-player-1" @change="selectSkinPawnPlayer2" >
                     <option :value="pawnsConfigName[1]" :key="pawnsConfigName[1]"> {{pawnsConfigName[1]}} </option>
 <!--                    <option v-for="name in pawnsConfigName" :value="name" :key="name"> {{name}} </option>-->
                 </select>
@@ -117,24 +115,28 @@ function selectLocalMod () {
             </section>
             <section  class="game-mod">
               <h2>Mode de la partie</h2>
-
-              <button :onclick="selectLocalMod" type="button" class="button-choice" >
-                <p>Partie locale</p>
-                <img class="computeur-icon" src="/assets/screen-image.png" alt="computeur image" />
-              </button>
               <button :onclick="selectDistantMod" type="button" class="button-choice">
                 <p>Partie à distance</p>
                 <img class="computeur-icon" src="/assets/screen-image.png" aria-hidden />
                 <img class="computeur-icon" src="/assets/screen-image.png" aria-hidden />
               </button>
+              <button :onclick="selectLocalMod" type="button" class="button-choice" >
+                <p>Partie locale</p>
+                <img class="computeur-icon" src="/assets/screen-image.png" alt="computeur image" />
+              </button>
             </section>
-            <button :onclick="submit" class="submit-button" > Commencer </button>
+            <button type="submit" class="submit-button" > Commencer </button>
         </form>
     </section>
 
 </template>
 
 <style scoped>
+
+input:invalid {
+  border: 1px solid red;
+}
+
 .parameters-container {
     background-color: rgb(50, 49, 90);
     padding: 1rem;
@@ -153,11 +155,11 @@ function selectLocalMod () {
     grid-template-rows: 1fr 1fr 0fr;
 
 
-    .player1 {
+    .player:nth-child(1) {
         grid-area: player1;
     }
     
-    .player2 {
+    .player:nth-child(2) {
         grid-area: player2;
     }
   .game-mod {
