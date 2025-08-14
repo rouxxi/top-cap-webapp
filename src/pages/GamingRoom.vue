@@ -91,16 +91,24 @@ onMounted(async ()=> {
     </div>
   </section>
    <section>
-     <h2 v-if="game?.status === STATUSES.STARTED">
+     <h2 v-if="game?.status === STATUSES.STARTED && game.game_mod === 'distant'">
        <span v-if="activeTeam?.user_id === userService.me">
-        {{ `C'est à de jouer` }}
+        {{ `C'est à vous de jouer` }}
        </span>
        <span v-else>
         {{ `En attente du joueur: ${activeTeam?.name}` }}
        </span>
      </h2>
+     <h2 v-else>
+       {{ `Joueur actif: ${activeTeam?.name}` }}
+     </h2>
    </section>
-   <GameOverview v-if="(game?.status !== STATUSES.CREATED && (isInformationLoaded() && imInTheGame && game?.game_mod=== 'distant')) || (game?.status === STATUSES.CREATED && (game?.game_mod=== 'local' && isInformationLoaded()))" :game="game" :pawnToUpdate/>
+   <GameOverview v-if="
+       (game?.status !== STATUSES.CREATED && (isInformationLoaded() && imInTheGame && game?.game_mod === 'distant')) ||
+       (game?.game_mod=== 'local' && isInformationLoaded())"
+       :game="game"
+       :pawnToUpdate
+   />
 
    <button :onclick="() => router.go(-1)">back</button>
 
