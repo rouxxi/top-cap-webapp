@@ -15,6 +15,8 @@ const teamName1 = ref('Team 1');
 const teamName2 = ref('Team 2');
 const gamePreSet = ref(1);
 const gameMod = ref('distant');
+const isLoading = ref(false);
+const errorMessage = ref();
 
 
 const router = useRouter()
@@ -32,12 +34,14 @@ async function submit (event: Event) {
     };
 
     try {
+      isLoading.value = true;
       const gameCreated =  await RequestService.post('/games', gameConfig)
       if (gameCreated?.id) {
         await router.push(`/gaming-room/${gameCreated?.id}`);
       }
     } catch (error) {
-      console.log(error);
+      isLoading.value = false;
+      errorMessage.value = 'Oops, une erreur est survenue!'
     }
 
 }
@@ -125,7 +129,11 @@ function selectLocalMod () {
                 <img class="computeur-icon" src="/assets/screen-image.png" alt="computeur image" />
               </button>
             </section>
-            <button type="submit" class="submit-button" > Commencer </button>
+
+          <div class="submit-container">
+            <button v-if="!isLoading" type="submit" class="submit-button" > Créer la partie </button>
+            <img v-else src="/assets/loading.gif" class="loading-icon">
+          </div>
         </form>
     </section>
 
@@ -142,6 +150,7 @@ input:invalid {
     padding: 1rem;
     width: fit-content;  
 }
+
 
 .settings-form {
     display: grid;
@@ -162,16 +171,27 @@ input:invalid {
     .player:nth-child(2) {
         grid-area: player2;
     }
-  .game-mod {
-    grid-area: gameMod;
-  }
-    .submit-button {
-        grid-area: submit;
-        height: fit-content;
-        max-width: 250px;
-        margin: 1rem;
+
+    .game-mod {
+      grid-area: gameMod;
     }
-    
+
+  .submit-container {
+    display: flex;
+    justify-content: center;
+    .submit-button {
+      grid-area: submit;
+      height: fit-content;
+      max-width: 250px;
+      margin: 1rem;
+    }
+
+    .loading-icon {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
     .game-presets {
         grid-area: preset;
         display: flex;
