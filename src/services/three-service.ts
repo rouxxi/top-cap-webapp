@@ -133,12 +133,22 @@ export class ThreeService {
         }
     };
 
-    consumeGameInformation ({ gameInformation , pawns, kings, teams}: { gameInformation: GameInformation , pawns: RawPawn[], kings: RawKing[], teams: RawTeam[]}) {
+    async consumeGameInformation ({ gameInformation , pawns, kings, teams}: { gameInformation: GameInformation , pawns: RawPawn[], kings: RawKing[], teams: RawTeam[]}) {
         let serializedTeam = []
         for (let team of teams) {
-            const teamPawns = pawns.filter((pawn)=> pawn.team_id === team.id).map((pawn)=>(new Pawn(pawn.id, pawn.position_x, pawn.position_y, team.id, team.pawns_skin)));
+            const teamPawns = pawns
+                .filter((pawn)=> pawn.team_id === team.id)
+                .map((pawn)=>(new Pawn(pawn.id, pawn.position_x, pawn.position_y, team.id, team.pawns_skin)));
             const teamKing = kings.find((king)=> king.team_id === team.id);
-            serializedTeam.push({id: team.id, name: team.name, selected: team.selected, pawns_skin:team.pawns_skin , kingPosition: [teamKing?.position_x, teamKing?.position_y], user_id:team.user_id , teamPawns});
+            serializedTeam.push({
+                id: team.id,
+                name: team.name,
+                selected: team.selected,
+                pawns_skin:team.pawns_skin ,
+                kingPosition: [teamKing?.position_x, teamKing?.position_y],
+                user_id:team.user_id ,
+                teamPawns
+            });
         }
 
         this.game = new GameService({
@@ -152,7 +162,7 @@ export class ThreeService {
         this.isSpamingGuardOn = false;
 
         if (this.game.isGameFinished && this.game.status === STATUSES.STARTED && this.game.winner) {
-            this.eventHandler.victory(this.game?.id, this.game.winner);
+            await this.eventHandler.victory(this.game?.id, this.game.winner);
         }
     }
 
@@ -183,16 +193,18 @@ export class ThreeService {
     }
 
 
-    playerFinished () {
+    async playerFinished () {
         const teamHasPlayed = this.game?.teams?.find((team) => {
             if (this.game?.game_mod === "local") return team.id === this.game?.active_team;
             return team.user_id === this.userId
         });
+        if (!teamHasPlayed) return;
+        this.isSpamingGuardOn = true;
+
         const teamToPlay = this.game?.teams.filter((team) => team.id !== teamHasPlayed.id)
         if (teamToPlay?.length === 1) {
-           this.eventHandler.teamHasToPlay(this.game?.id,teamToPlay[0].id);
+           await this.eventHandler.teamHasToPlay(this.game?.id,teamToPlay[0].id);
         }
-        this.isSpamingGuardOn = true;
     }
 
     async clickEvent (_) {
@@ -208,7 +220,7 @@ export class ThreeService {
 
 
             if (!this.selectedPawn && !selectedTile?.object?.is_available_move) {
-                if (this.isMyPawn(selectedPawn?.game_id)) return;
+                if (!this.isMyPawn(selectedPawn?.game_id)) return;
                 this.selectedPawn = selectedPawn;
             } else if (this.selectedPawn && selectedTile?.object?.is_available_move) {
                 const positionToMove = selectedTile.object.name.split('-')[1].split(',').map((el)=> parseInt(el));
@@ -225,14 +237,14 @@ export class ThreeService {
                     gamePawn.setNewPosition([positionToMove[0], positionToMove[1]]);
                 }
                 if (gamePawn && pawnToMove) {
-                   this.eventHandler.pawnSync({
+                   await this.eventHandler.pawnSync({
                         id: gamePawn.id,
                         team_id: gamePawn.teamId,
                         position_x: gamePawn.position_x,
                         position_y: gamePawn.position_y
                     })
                 }
-                this.playerFinished()
+                await this.playerFinished()
                 //TODO faire la condition pour vérifier que le pion est bien le mm que celui selectionné
                 this.selectedPawn = undefined;
             } else {
