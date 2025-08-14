@@ -2,9 +2,9 @@
 import {ref, type SelectHTMLAttributes} from "vue";
 import PawnPreview from "./PawnPreview.vue";
 import gltfFilesFormat from "../configs/gltf-files-format";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import {RequestService} from "../services/request-service.ts";
+import {STATUSES} from "../services/GameService.ts";
 
 
 const pawnsConfigName = gltfFilesFormat.keys(); 
@@ -32,6 +32,10 @@ async function submit (event: Event) {
         {name: teamName2.value, pawns_skin:pawnSkinNamePlayer2.value }
       ]
     };
+
+    if (gameMod.value === 'local') {
+      gameConfig.status = STATUSES.STARTED;
+    }
 
     try {
       isLoading.value = true;
