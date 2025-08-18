@@ -34,8 +34,6 @@ export class ThreeService {
     constructor(isPreview: boolean = false) {
         this.clickEvent = this.clickEvent.bind(this);
         this.mouseTracking = this.mouseTracking.bind(this);
-        // this.applyClick = this.applyClick.bind(this);
-
         this.isPreviewMod = isPreview;
         this.gltfLoader = new GLTFLoader();
         this.textureLoader = new THREE.TextureLoader();
@@ -277,7 +275,6 @@ export class ThreeService {
         }
     }
 
-
     resetPreviewPawn() {
         this.scene = new THREE.Scene();
         this.setupLight()
@@ -364,33 +361,31 @@ export class ThreeService {
     loadPreviewPawn (name:string) {
         const config = gltfImportFormat.getConfigByName(name);
 
-
-
         this.gltfLoader.load(`/assets/pawn-skin/${name}/scene.gltf`,
          (gltf) => {
-                // const materials = config.texturesPath.map((texturePath : string) => new THREE.MeshBasicMaterial({map:this.loadColorTexture(`/assets/${name}/${texturePath}`)}) );
 
-                // resizeElement
-                const sizeOfPawn = new THREE.Box3().setFromObject( gltf.scene.children[0])
-                const scaleX = config.preview.toSclale / (sizeOfPawn.max.x - sizeOfPawn.min.x);
-                const scaleY = config.preview.toSclale / (sizeOfPawn.max.y - sizeOfPawn.min.y);
-                const scaleZ = config.preview.toSclale / (sizeOfPawn.max.z - sizeOfPawn.min.z);
-                gltf.scene.scale.set(scaleX,scaleY, scaleZ)
+            // resizeElement
+            const sizeOfPawn = new THREE.Box3().setFromObject( gltf.scene.children[0])
+            const scaleX = config.preview.toSclale / (sizeOfPawn.max.x - sizeOfPawn.min.x);
+            const scaleY = config.preview.toSclale / (sizeOfPawn.max.y - sizeOfPawn.min.y);
+            const scaleZ = config.preview.toSclale / (sizeOfPawn.max.z - sizeOfPawn.min.z);
+            gltf.scene.scale.set(scaleX,scaleY, scaleZ)
 
-                // orientation dépend de l'export fait par le créateur
-                gltf.scene.children[0].position.set(
-                    config.preview.toCenterPosition.x,
-                    config.preview.toCenterPosition.y,
-                    config.preview.toCenterPosition.z
-                );
-                gltf.scene.children[0].rotation.set(
-                    config.preview.rotation.x,
-                    config.preview.rotation.y,
-                    config.preview.rotation.z
-                );
+            // orientation dépend de l'export fait par le créateur
+            gltf.scene.children[0].position.set(
+                config.preview.toCenterPosition.x,
+                config.preview.toCenterPosition.y,
+                config.preview.toCenterPosition.z
+            );
+            gltf.scene.children[0].rotation.set(
+                config.preview.rotation.x,
+                config.preview.rotation.y,
+                config.preview.rotation.z
+            );
+             gltf.scene.position.set(0,0,0);
 
-                gltf.scene.position.set(0,0,0);
-                this.scene.add(gltf.scene)
+            this.scene.add(gltf.scene)
+
             },
             (prog) => {
                 console.log({prog })
@@ -399,12 +394,6 @@ export class ThreeService {
                 console.log({err})
             },
         )
-    }
-
-    loadColorTexture( path: string ) {
-        const texture = this.textureLoader.load( path );
-        texture.colorSpace = THREE.SRGBColorSpace;
-        return texture;
     }
 
     loadPawn (name: string, position: [number, number], pawnId: number,teamId: number, group) {
