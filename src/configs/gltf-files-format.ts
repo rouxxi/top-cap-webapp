@@ -29,10 +29,41 @@ type ConfigElement = {
             z:number,
         }
     }
-    texturesPath: string[]
 }
 
 const gltfConfig : Record<string, ConfigElement> = {
+    'coffee_capsule': {
+        preview: {
+            rotation: {
+                x:-1.3,
+                y:0,
+                z:0,
+            },
+            toCenterPosition: {
+                x:0,
+                y:0,
+                z:0
+            },
+            toSclale: 0.8,
+        },
+        game: {
+            position: {
+                x: 1,
+                y: 1.70,
+                z: 1,
+            },
+            rotation: {
+                x:-0.9999,
+                y:0.9999,
+                z:-0.0999,
+            },
+            scale: {
+                x:1.5,
+                y:1.5,
+                z:1.5,
+            }
+        }
+    },
     'black_caps': {
         preview: {
             rotation: {
@@ -63,9 +94,7 @@ const gltfConfig : Record<string, ConfigElement> = {
                 y:0.18,
                 z:0.18,
             }
-        },
-        texturesPath: []
-        
+        }
     },
     'nuka_kola': {
         preview: {
@@ -97,9 +126,8 @@ const gltfConfig : Record<string, ConfigElement> = {
                 y:0.011,
                 z:0.011,
             }
-        },
-        texturesPath: ['/textures/07_-_Default_diffuse.png', '/textures/07_-_Default_normal.png', '/textures/07_-_Default_specularGlossiness.png']
-    },
+        }
+    }
 }
 
 function getConfigByName (name :  string) : ConfigElement {

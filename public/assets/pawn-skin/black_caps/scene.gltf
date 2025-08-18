@@ -1,7 +1,17 @@
 {
+  "asset": {
+    "generator": "glTF-Transform v4.2.1",
+    "version": "2.0",
+    "extras": {
+      "author": "YouniqueĪdeaStudio (https://sketchfab.com/sinnervoncrawsz)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/bottle-cap-3199fc3d6aa745fdbbdb153a4bddc903",
+      "title": "BOTTLE CAP"
+    }
+  },
   "accessors": [
     {
-      "bufferView": 1,
+      "type": "VEC3",
       "componentType": 5126,
       "count": 6061,
       "max": [
@@ -14,74 +24,55 @@
         -14.056380271911621,
         -14.144800186157227
       ],
-      "type": "VEC3"
+      "bufferView": 0,
+      "byteOffset": 0
     },
     {
-      "bufferView": 1,
-      "byteOffset": 72732,
+      "type": "VEC3",
       "componentType": 5126,
       "count": 6061,
-      "max": [
-        0.9997063279151917,
-        0.9999420046806335,
-        0.9998887181282043
-      ],
-      "min": [
-        -0.7672222256660461,
-        -0.9999983906745911,
-        -0.9997952580451965
-      ],
-      "type": "VEC3"
+      "bufferView": 0,
+      "byteOffset": 12
     },
     {
-      "bufferView": 0,
+      "type": "SCALAR",
       "componentType": 5125,
       "count": 35733,
-      "type": "SCALAR"
+      "bufferView": 1,
+      "byteOffset": 0
     }
   ],
-  "asset": {
-    "extras": {
-      "author": "YouniqueĪdeaStudio (https://sketchfab.com/sinnervoncrawsz)",
-      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/bottle-cap-3199fc3d6aa745fdbbdb153a4bddc903",
-      "title": "BOTTLE CAP"
-    },
-    "generator": "Sketchfab-12.66.0",
-    "version": "2.0"
-  },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 142932,
-      "name": "floatBufferViews",
-      "target": 34963
+      "byteOffset": 0,
+      "byteLength": 145464,
+      "byteStride": 24,
+      "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 145464,
-      "byteOffset": 142932,
-      "byteStride": 12,
-      "name": "floatBufferViews",
-      "target": 34962
+      "byteOffset": 145464,
+      "byteLength": 142932,
+      "target": 34963
     }
   ],
   "buffers": [
     {
-      "byteLength": 288396,
-      "uri": "scene.bin"
+      "uri": "scene.bin",
+      "byteLength": 288396
     }
   ],
   "materials": [
     {
-      "doubleSided": true,
       "name": "Root",
+      "doubleSided": true,
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.8708333015441895,
           0.8708333015441895,
           0.8708333015441895,
-          1.0
+          1
         ],
         "roughnessFactor": 0.07916669845581059
       }
@@ -96,102 +87,80 @@
             "NORMAL": 1,
             "POSITION": 0
           },
-          "indices": 2,
+          "mode": 4,
           "material": 0,
-          "mode": 4
+          "indices": 2
         }
       ]
     }
   ],
   "nodes": [
     {
-      "children": [
-        1
-      ],
-      "matrix": [
-        0.4677860140800476,
-        -0.4501537978649141,
-        0.7606167197227477,
-        0.0,
-        0.7853096723556519,
-        -0.18317955732345567,
-        -0.5913830995559692,
-        0.0,
-        0.40554279088974,
-        0.8739604353904723,
-        0.26782131195068376,
-        0.0,
+      "name": "Sketchfab_model",
+      "translation": [
         -1.1507554054260254,
         0.38077536225318925,
-        -0.8017475605010985,
-        1.0
+        -0.8017475605010985
       ],
-      "name": "black_caps"
+      "rotation": [
+        -0.5880357759936802,
+        -0.14248958009915047,
+        -0.49578594751806776,
+        0.6229822958773608
+      ],
+      "children": [
+        1
+      ]
     },
     {
+      "name": "Root",
       "children": [
         2,
         4
-      ],
-      "name": "Root"
+      ]
     },
     {
-      "children": [
-        3
-      ],
-      "matrix": [
-        -0.29086000000000006,
-        0.9551700000000001,
-        -0.05519000000000001,
-        0.0,
-        -0.7711,
-        -0.19988000000000003,
-        0.6045200000000001,
-        0.0,
-        0.5663900000000001,
-        0.21839000000000003,
-        0.7946700000000001,
-        0.0,
+      "name": "Lamp",
+      "translation": [
         4.076250000000001,
         1.00545,
-        5.903860000000001,
-        1.0
+        5.903860000000001
       ],
-      "name": "Lamp"
+      "rotation": [
+        0.16907447008309556,
+        0.2721706359913094,
+        0.7558797583695019,
+        0.5709491121494871
+      ],
+      "children": [
+        3
+      ]
     },
     {
       "name": "Lamp"
     },
     {
+      "name": "Cylinder",
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0.7071067811865476,
+        0
+      ],
+      "scale": [
+        0.1501,
+        0.1501,
+        0.1501
+      ],
       "children": [
         5
-      ],
-      "matrix": [
-        0.0,
-        0.0,
-        0.1501,
-        0.0,
-        0.0,
-        -0.1501,
-        0.0,
-        0.0,
-        0.1501,
-        0.0,
-        -0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ],
-      "name": "Cylinder"
+      ]
     },
     {
-      "mesh": 0,
-      "name": "Cylinder_0"
+      "name": "Cylinder_0",
+      "mesh": 0
     }
   ],
-  "scene": 0,
   "scenes": [
     {
       "name": "Sketchfab_Scene",
@@ -199,5 +168,6 @@
         0
       ]
     }
-  ]
+  ],
+  "scene": 0
 }
