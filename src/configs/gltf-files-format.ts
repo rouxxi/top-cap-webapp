@@ -49,18 +49,18 @@ const gltfConfig : Record<string, ConfigElement> = {
         game: {
             position: {
                 x: 1,
-                y: 1.70,
+                y: 1.55,
                 z: 1,
             },
             rotation: {
-                x:-0.9999,
+                x:-6.3,
                 y:0.9999,
-                z:-0.0999,
+                z:0,
             },
             scale: {
-                x:1.5,
-                y:1.5,
-                z:1.5,
+                x:1.9,
+                y:1.3,
+                z:1.9,
             }
         }
     },
