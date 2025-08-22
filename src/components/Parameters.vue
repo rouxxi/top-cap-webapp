@@ -9,7 +9,7 @@ import {STATUSES} from "../services/GameService.ts";
 
 const pawnsConfigName = gltfFilesFormat.keys(); 
 const pawnSkinNamePlayer1 = ref<string>(pawnsConfigName[0]);
-const pawnSkinNamePlayer2 = ref<string>(pawnsConfigName[1]);
+const pawnSkinNamePlayer2 = ref<string>(pawnsConfigName[0]);
 
 const teamName1 = ref('Team 1');
 const teamName2 = ref('Team 2');
