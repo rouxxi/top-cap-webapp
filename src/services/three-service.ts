@@ -289,7 +289,11 @@ export class ThreeService {
         dirLight2.position.set( - 1, - 1, - 1 );
         this.scene.add( dirLight2 );
 
-        const ambientLight = new THREE.AmbientLight( 0x555555 );
+        const dirLight3 = new THREE.DirectionalLight( 0xfff2cc, 3 );
+        dirLight3.position.set(4, -10,2);
+        this.scene.add( dirLight3 );
+
+        const ambientLight = new THREE.AmbientLight( 0xffffff );
         this.scene.add( ambientLight );
     }
 
