@@ -127,6 +127,38 @@ const gltfConfig : Record<string, ConfigElement> = {
                 z:0.011,
             }
         }
+    },
+    'coca_cola': {
+        preview: {
+            rotation: {
+                x:-4.2,
+                y:3.3,
+                z:0.6,
+            },
+            toCenterPosition: {
+                x:0,
+                y:-0.001,
+                z:0
+            },
+            toSclale: 0.6,
+        },
+        game: {
+            position: {
+                x: 1,
+                y: 1.7,
+                z: 1,
+            },
+            rotation: {
+                x: -0.005,
+                y:3.5,
+                z:-3.15,
+            },
+            scale: {
+                x:25,
+                y:25,
+                z:25,
+            }
+        }
     }
 }
 
