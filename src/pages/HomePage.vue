@@ -20,10 +20,14 @@ import GameRules from "../components/GameRules.vue";
 
 <style scoped>
 .container {
-    display: grid;
-    grid-gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+    //display: grid;
+    //grid-gap: 2rem;
     /* text-align: center; */
-    grid-template-columns: 0.4fr 1fr;
+    //grid-template-columns: 0.4fr 1fr;
 }
 .title-container {
     text-align: center;
