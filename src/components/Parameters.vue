@@ -81,6 +81,9 @@ const imagePresetUrl = computed(() => {
   return `/assets/game-presets/preset_${gamePreSet.value}.png`
 })
 
+const isDistantModSelected = computed(() => {
+  return gameMod.value === 'distant';
+})
 </script>
 
 <template>
@@ -125,12 +128,12 @@ const imagePresetUrl = computed(() => {
             </section>
             <section  class="game-mod">
               <h2>Mode de la partie</h2>
-              <button :onclick="selectDistantMod" type="button" class="button-choice">
+              <button :onclick="selectDistantMod" type="button" class="button-choice" :class="{['is-selected']: isDistantModSelected}">
                 <p>Partie à distance</p>
                 <img class="computeur-icon" src="/assets/screen-image.png" aria-hidden />
                 <img class="computeur-icon" src="/assets/screen-image.png" aria-hidden />
               </button>
-              <button :onclick="selectLocalMod" type="button" class="button-choice" >
+              <button :onclick="selectLocalMod" type="button" class="button-choice"  :class="{['is-selected']: !isDistantModSelected}">
                 <p>Partie locale</p>
                 <img class="computeur-icon" src="/assets/screen-image.png" alt="computeur image" />
               </button>
@@ -223,6 +226,12 @@ input:invalid {
       padding: 1rem;
       border-radius: 10px;
       background-color: rgba(255, 255, 255, 0.5);
+      border: 3px solid transparent;
     }
+
+  .button-choice.is-selected {
+    border-color: green;
+  }
+
 }
 </style>
