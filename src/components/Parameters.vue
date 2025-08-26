@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, type SelectHTMLAttributes} from "vue";
+import {computed, ref, type SelectHTMLAttributes} from "vue";
 import PawnPreview from "./PawnPreview.vue";
 import gltfFilesFormat from "../configs/gltf-files-format";
 import { useRouter } from "vue-router";
@@ -77,6 +77,10 @@ function selectLocalMod () {
   gameMod.value = 'local';
 }
 
+const imagePresetUrl = computed(() => {
+  return `/assets/game-presets/preset_${gamePreSet.value}.png`
+})
+
 </script>
 
 <template>
@@ -116,7 +120,7 @@ function selectLocalMod () {
                     <option value=2 >Position 2</option>
                     <option value=3 >Position 3</option>
                 </select>
-                <img class="game-presets-image" src="/assets/presets.png" alt="image d'aide pour les règles" />
+                <img class="game-presets-image" :src="imagePresetUrl" alt="image d'aide pour les règles" />
             
             </section>
             <section  class="game-mod">
@@ -205,8 +209,8 @@ input:invalid {
     }
             
     .game-presets-image {
-        /* rotate: -90deg; */
-        width: 250px;
+      margin-top: 1rem;
+      width: 150px;
     }
 
     .computeur-icon {
