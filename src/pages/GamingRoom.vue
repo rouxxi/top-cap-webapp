@@ -7,6 +7,7 @@ import {RequestService} from "../services/request-service.ts";
 import {Subscritpions} from "../services/subscritpions.ts";
 import {userService} from "../services/user-servive.ts";
 import GenerateLinkButton from "../components/GenerateLinkButton.vue";
+import GameRules from "../components/GameRules.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -91,6 +92,7 @@ onMounted(async ()=> {
     </div>
   </section>
    <section>
+     <GameRules />
      <h2 v-if="game?.status === STATUSES.STARTED && game.game_mod === 'distant'">
        <span v-if="activeTeam?.user_id === userService.me">
         {{ `C'est à vous de jouer` }}
